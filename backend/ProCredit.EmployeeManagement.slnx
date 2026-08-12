@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ProCredit.EmployeeManagement.Api/ProCredit.EmployeeManagement.Api.csproj" />
+    <Project Path="src/ProCredit.EmployeeManagement.Application/ProCredit.EmployeeManagement.Application.csproj" />
+    <Project Path="src/ProCredit.EmployeeManagement.Domain/ProCredit.EmployeeManagement.Domain.csproj" />
+    <Project Path="src/ProCredit.EmployeeManagement.Infrastructure/ProCredit.EmployeeManagement.Infrastructure.csproj" />
+  </Folder>
+</Solution>

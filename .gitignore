@@ -1,0 +1,36 @@
+# ---- .NET ----
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.dbmdl
+*.dbproj.schemaview
+appsettings.Development.json
+appsettings.*.local.json
+
+# ---- Node / React / Vite ----
+node_modules/
+dist/
+dist-ssr/
+.vite/
+*.local
+frontend/.env
+frontend/.env.*
+
+# ---- Docker ----
+*.pid
+
+# ---- SQL Server local data (if any bind mount is used) ----
+database/data/
+
+# ---- Env / secrets ----
+.env
+.env.*
+!.env.example
+
+# ---- OS / Editor ----
+.DS_Store
+Thumbs.db
+.idea/
+*.swp

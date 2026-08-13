@@ -19,6 +19,15 @@ builder.Services.AddOpenApi(options =>
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy => policy
+        .WithOrigins(allowedOrigins)
+        .AllowAnyHeader()
+        .AllowAnyMethod());
+});
+
 builder.Services.AddScoped<ListEmployeesService>();
 builder.Services.AddScoped<CreateEmployeeService>();
 builder.Services.AddScoped<AuthenticateUserService>();
@@ -58,6 +67,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("Frontend");
 
 app.UseAuthentication();
 app.UseAuthorization();

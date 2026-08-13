@@ -9,6 +9,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Cargo> Cargos => Set<Cargo>();
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<User> Users => Set<User>();
+    public DbSet<EmployeeQueryResult> EmployeeQueryResults => Set<EmployeeQueryResult>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

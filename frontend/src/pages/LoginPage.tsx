@@ -31,9 +31,9 @@ export function LoginPage() {
       navigate('/employees', { replace: true })
     } catch (err) {
       if (isAxiosError(err) && err.response === undefined) {
-        setError('Unable to reach the server. Please try again.')
+        setError('No se pudo conectar con el servidor. Intenta de nuevo.')
       } else {
-        setError('Invalid username or password.')
+        setError('Usuario o contraseña inválidos.')
       }
     } finally {
       setIsSubmitting(false)
@@ -53,10 +53,10 @@ export function LoginPage() {
     >
       <Paper component="form" onSubmit={handleSubmit} elevation={3} sx={{ p: 4, width: '100%', maxWidth: 360 }}>
         <Typography variant="h5" component="h1" gutterBottom>
-          Employee Management
+          Gestión de Empleados
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-          Sign in to continue
+          Inicia sesión para continuar
         </Typography>
 
         {error && (
@@ -66,30 +66,30 @@ export function LoginPage() {
         )}
 
         <TextField
-          label="Username"
+          label="Usuario"
           fullWidth
           margin="normal"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
           error={usernameError}
-          helperText={usernameError ? 'Username is required' : ' '}
+          helperText={usernameError ? 'El usuario es obligatorio' : ' '}
           disabled={isSubmitting}
           autoFocus
         />
         <TextField
-          label="Password"
+          label="Contraseña"
           type="password"
           fullWidth
           margin="normal"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           error={passwordError}
-          helperText={passwordError ? 'Password is required' : ' '}
+          helperText={passwordError ? 'La contraseña es obligatoria' : ' '}
           disabled={isSubmitting}
         />
 
         <Button type="submit" variant="contained" fullWidth size="large" sx={{ mt: 2 }} disabled={isSubmitting}>
-          {isSubmitting ? <CircularProgress size={24} color="inherit" /> : 'Sign in'}
+          {isSubmitting ? <CircularProgress size={24} color="inherit" /> : 'Iniciar sesión'}
         </Button>
       </Paper>
     </Box>

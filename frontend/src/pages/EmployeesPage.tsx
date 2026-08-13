@@ -24,12 +24,14 @@ import {
 import { useAuth } from '../auth/AuthContext'
 import { listAreas } from '../api/areasApi'
 import { listEmployees } from '../api/employeesApi'
+import { AddEmployeeModal } from '../components/AddEmployeeModal'
 
-const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
+const currencyFormatter = new Intl.NumberFormat('es-EC', { style: 'currency', currency: 'USD' })
 
 export function EmployeesPage() {
   const { logout } = useAuth()
   const [area, setArea] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const areasQuery = useQuery({ queryKey: ['areas'], queryFn: listAreas })
   const employeesQuery = useQuery({
@@ -45,34 +47,40 @@ export function EmployeesPage() {
     <Box>
       <AppBar position="static">
         <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Typography variant="h6">Employee Management</Typography>
+          <Typography variant="h6">Gestión de Empleados</Typography>
           <Button color="inherit" onClick={logout}>
-            Log out
+            Cerrar sesión
           </Button>
         </Toolbar>
       </AppBar>
 
       <Container sx={{ py: 4 }}>
-        <FormControl sx={{ minWidth: 240, mb: 3 }} size="small">
-          <InputLabel id="area-filter-label">Area</InputLabel>
-          <Select
-            labelId="area-filter-label"
-            label="Area"
-            value={area}
-            onChange={handleAreaChange}
-          >
-            <MenuItem value="">All areas</MenuItem>
-            {areasQuery.data?.map((areaOption) => (
-              <MenuItem key={areaOption.id} value={areaOption.name}>
-                {areaOption.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
+          <FormControl sx={{ minWidth: 240 }} size="small">
+            <InputLabel id="area-filter-label">Área</InputLabel>
+            <Select
+              labelId="area-filter-label"
+              label="Área"
+              value={area}
+              onChange={handleAreaChange}
+            >
+              <MenuItem value="">Todas las áreas</MenuItem>
+              {areasQuery.data?.map((areaOption) => (
+                <MenuItem key={areaOption.id} value={areaOption.name}>
+                  {areaOption.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <Button variant="contained" onClick={() => setIsModalOpen(true)}>
+            Agregar Empleado
+          </Button>
+        </Box>
 
         {employeesQuery.isError && (
           <Alert severity="error" sx={{ mb: 2 }}>
-            Failed to load employees.
+            Error al cargar los empleados.
           </Alert>
         )}
 
@@ -80,12 +88,12 @@ export function EmployeesPage() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Document ID</TableCell>
-                <TableCell>First Name</TableCell>
-                <TableCell>Last Name</TableCell>
-                <TableCell align="right">Age</TableCell>
-                <TableCell align="right">Monthly Salary</TableCell>
-                <TableCell>Area</TableCell>
+                <TableCell>Documento</TableCell>
+                <TableCell>Nombres</TableCell>
+                <TableCell>Apellidos</TableCell>
+                <TableCell align="right">Edad</TableCell>
+                <TableCell align="right">Salario Mensual</TableCell>
+                <TableCell>Área</TableCell>
                 <TableCell>Cargo</TableCell>
               </TableRow>
             </TableHead>
@@ -101,7 +109,7 @@ export function EmployeesPage() {
               {employeesQuery.isSuccess && employeesQuery.data.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={7} align="center" sx={{ py: 4 }}>
-                    No employees found.
+                    No se encontraron empleados.
                   </TableCell>
                 </TableRow>
               )}
@@ -121,6 +129,8 @@ export function EmployeesPage() {
           </Table>
         </TableContainer>
       </Container>
+
+      <AddEmployeeModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </Box>
   )
 }

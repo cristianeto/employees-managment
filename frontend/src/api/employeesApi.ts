@@ -19,3 +19,18 @@ export async function listEmployees(area?: string): Promise<EmployeeDto[]> {
   })
   return data
 }
+
+export interface CreateEmployeeRequest {
+  documentId: string
+  firstName: string
+  lastName: string
+  age: number
+  monthlySalary: number
+  areaId: number
+  cargoId: number
+}
+
+export async function createEmployee(request: CreateEmployeeRequest): Promise<EmployeeDto> {
+  const { data } = await httpClient.post<EmployeeDto>('/api/employees', request)
+  return data
+}

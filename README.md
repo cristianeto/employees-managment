@@ -81,6 +81,8 @@ Esto crea las tablas, el stored procedure `sp_GetEmployeesByArea`, y siembra los
 
 > Si prefieres reconstruir la API después de este paso (por ejemplo, tras cambiar código), vuelve a levantarla con `docker compose up -d --build api`.
 
+La API corre con `ASPNETCORE_ENVIRONMENT=Development` en el contenedor, así que la documentación OpenAPI/Scalar queda disponible en `http://localhost:5232/scalar` (o `http://localhost:<API_PORT>/scalar` si cambiaste el puerto).
+
 ### 4. Levantar el frontend
 
 ```
@@ -126,7 +128,7 @@ dotnet ef database update --project src/ProCredit.EmployeeManagement.Infrastruct
 dotnet run --project src/ProCredit.EmployeeManagement.Api
 ```
 
-La API queda disponible en `http://localhost:5232` (perfil `https` añade `https://localhost:7040`). Documentación OpenAPI/Scalar disponible en `/scalar` en entorno Development.
+La API queda disponible en `http://localhost:5232` (perfil `https` añade `https://localhost:7040`). Documentación OpenAPI/Scalar disponible en `http://localhost:5232/scalar` (solo en entorno Development).
 
 ### 5. Levantar el frontend
 
